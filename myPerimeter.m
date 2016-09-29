@@ -1,13 +1,15 @@
-function [bdd_points] = myPerimeter(imIn,method)
+function [bdd_points, length, area] = myPerimeter(imIn,method)
 	[n,m] = size(imIn);
 	vbackward = [];
 	vforward = [];
+	area = 0;
 	for i = 1:n
 		v = imIn(i,:);
 		a = find(v);
 		if ~isempty(a)
 			vforward = [vforward [i;min(a)]];
 			vbackward = [vbackward [i;max(a)]];
+			area = area + max(a) - min(a) + 1;
 		end
 	end
 	if isequal(vbackward(end),vforward(end))
@@ -22,7 +24,5 @@ function [bdd_points] = myPerimeter(imIn,method)
 			bdd_points = bdd_points(1:end-1,:);
 		end
 	end
-	if nargin > 1 & strcmp('chull',method)
-
-	end
+	length = myPerimeterLength(bdd_points);
 end
