@@ -16,4 +16,5 @@ function area = myArea(bdd_points)
 		first = second;
 	end
 	area = abs(area);
+	area = area + m/2 - 1;
 end
