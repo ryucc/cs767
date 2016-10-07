@@ -1,9 +1,12 @@
 ## CS767 Assignment 1
 
 ### Problem 1
- - mySegmenter(imIn): Segmentate the image into foreground and background.
+ - [imOut, bdd\_points, bdd\_length, Area, diameter] = mySegmenter(imIn): 
+   - Segmentate the image into foreground and background.
    - Inputs : A 2-D logical or integer array, the image.
-   - Outputs : A logical 2-D array, True for pixels on the foreground.
+   - Outputs : 
+    - imOut : The Segmentated image
+    - bdd\_points : The Segmentated image
    - Algorithm: Generates a histrogram on the image, then uses Otsu's method to find threshold for segmentation.
 
  - myPerimeter(imIn): Find an polygon boundary that surrounds the foreground pixels.

@@ -1,8 +1,7 @@
-function myEdge2(imIn, ths)
+function imOut = myEdge2(imIn, ths)
 	% quantization
 	thresh = multithresh(imIn,ths);
 	A = imquantize(imIn,thresh);
-	%A = myModeFilt(A);
 	A =	im2double(A); 
 	
 	% x derivitive and y dervitive
@@ -33,9 +32,9 @@ function myEdge2(imIn, ths)
 			if abs(r) == 1
 				a = sign(derX(i,j));
 				b = sign(derY(i,j));
-				if norm([derX(i+a,j+b),derY(i+a,j+b)])>= norm([derX(i,j),derY(i,j)])
+				if norm([derX(i+a,j+b),derY(i+a,j+b)])> norm([derX(i,j),derY(i,j)])
 					isEdge(i,j) = 0;
-				elseif norm([derX(i-a,j-b),derY(i-a,j-b)])>= norm([derX(i,j),derY(i,j)])
+				elseif norm([derX(i-a,j-b),derY(i-a,j-b)])> norm([derX(i,j),derY(i,j)])
 					isEdge(i,j) = 0;
 				end
 			else if abs(r)< 1
@@ -46,9 +45,9 @@ function myEdge2(imIn, ths)
 				qy = r*derY(i,j+b)+(1-r)*derY(i+a,j+b);
 				px = r*derX(i,j-b)+(1-r)*derX(i-a,j-b);
 				py = r*derY(i,j-b)+(1-r)*derY(i-a,j-b);
-				if norm([qx,qy]) >=	norm([derX(i,j),derY(i,j)])
+				if norm([qx,qy]) >	norm([derX(i,j),derY(i,j)])
 					isEdge(i,j) = 0;
-				elseif norm([px,py]) >=	norm([derX(i,j),derY(i,j)])
+				elseif norm([px,py]) >	norm([derX(i,j),derY(i,j)])
 					isEdge(i,j) = 0;
 				end
 			else
@@ -67,5 +66,9 @@ function myEdge2(imIn, ths)
 			end
 		end
 	end
-	imshow(isEdge);
+	isEdge(1:2,:) = 0;
+	isEdge(end-1:end,:) = 0;
+	isEdge(:,1:2) = 0;
+	isEdge(:,end-1:end) = 0;
+	imOut = isEdge;
 end

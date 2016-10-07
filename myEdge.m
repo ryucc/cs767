@@ -1,7 +1,7 @@
-function myEdge(imIn, sigma)
+function imOut = myEdge(imIn, sigma)
 	% gaussian filter
 	A = im2double(imIn);
-	gauss = fspecial('gaussian', 15 ,sigma);
+	gauss = fspecial('gaussian', 5 ,sigma);
 	A = conv2(A,gauss);
 	A = conv2(A,gauss);
 	% x derivitive and y dervitive
@@ -66,8 +66,11 @@ function myEdge(imIn, sigma)
 			end
 		end
 	end
+	isEdge(1:2,:) = 0;
+	isEdge(end-1:end,:) = 0;
+	isEdge(:,1:2) = 0;
+	isEdge(:,end-1:end) = 0;
 	neighbor = [1 1 1;1 0 1; 1 1 1];
 	temp = conv2(double(isEdge),neighbor);
-	imshow(isEdge&(temp(2:n+1,2:m+1)>1));
-
+	imOut = isEdge&(temp(2:n+1,2:m+1)>1);
 end
