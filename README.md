@@ -16,11 +16,13 @@
     - bdd\_length: The number of boundary points, sinces all boundary points are neighbors.
     - Area: The integral of (max\_x - min\_x + 1) over y
     - diameter: Runs a n^2 pairwise distances to find the diameter. Necessary because boundary is not convex. 
+
 ### 1.1 other (maybe unused) implementations
    - myPerimeter: Handles bdd\_points, bdd\_length, Area, diameter for mySegmenter.
    - myDiameter: Handles diameter for myPerimeter.
    - myArea(unused): Takes the set of boundary points, and calulates the area by dividing it into triangles.
    - myPerimeterLength(unused):the sum of Euclidian distances between boundary points.
+
 #### 1.2 myDT(imIn,method)
    - Creates the distance transfrom
    - Inputs : A 2-D logical or integer array, the image.
