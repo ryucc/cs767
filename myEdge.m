@@ -16,10 +16,18 @@ function imOut = myEdge(imIn, sigma)
 	cordX = (1:n*m)/n+1;
 	cordY = mod((n*m:-1:1),n);
 	quiver(cordX,cordY,lderX,-lderY);
+
+	% otsu
+	grad = derX.^2 + derY.^2;
+	thresh = multithresh(grad,10);
+	grad = imquantize(grad,thresh);
+	grad = (grad>1);
+	derX = derX.*grad;
+	derY = derY.*grad;
 	
 	%non-maxium surpression
 	[n,m] = size(derX);
-	isEdge = derX~=0 | derY~=0;
+	isEdge = grad;
 	for i = 2:n-1
 		for j = 2:m-1
 			if derX(i,j) == 0
@@ -66,11 +74,9 @@ function imOut = myEdge(imIn, sigma)
 			end
 		end
 	end
-	isEdge(1:2,:) = 0;
-	isEdge(end-1:end,:) = 0;
-	isEdge(:,1:2) = 0;
-	isEdge(:,end-1:end) = 0;
-	neighbor = [1 1 1;1 0 1; 1 1 1];
-	temp = conv2(double(isEdge),neighbor);
-	imOut = isEdge&(temp(2:n+1,2:m+1)>1);
+	isEdge(1:4,:) = 0;
+	isEdge(end-3:end,:) = 0;
+	isEdge(:,1:4) = 0;
+	isEdge(:,end-3:end) = 0;
+	imOut = isEdge;
 end

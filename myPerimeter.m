@@ -51,7 +51,7 @@ function [bdd_points, bdd_length, area, diameter] = myPerimeter(imIn)
 		end
 	end
 	bdd_points = [vforward vbottom fliplr(vbackward) vtop];
-
-	bdd_length = myPerimeterLength(bdd_points);
+	[n,m]= size(bdd_points);
+	bdd_length = m;
 	diameter = myDiameter(bdd_points);
 end
