@@ -1,7 +1,7 @@
 ## CS767 Assignment 1
 
 ### Problem 1
- - [imOut, bdd\_points, bdd\_length, Area, diameter] = mySegmenter(imIn): 
+####[imOut, bdd\_points, bdd\_length, Area, diameter] = mySegmenter(imIn): 
    - Segmentate the image into foreground and background.
    - Inputs : A 2-D logical or integer array, the image.
    - Outputs : 
