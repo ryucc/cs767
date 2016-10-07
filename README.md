@@ -7,15 +7,15 @@
    - Outputs : 
     - imOut : The Segmentated image.
     - bdd\_points : A polygon boundary of the image.
-	- bdd\_length: The length of the polygon boundary.
-	- Area: Area inside the polygon boundary.
-	- diameter: the largest distance between two points in the ROI.
+    - bdd\_length: The length of the polygon boundary.
+    - Area: Area inside the polygon boundary.
+    - diameter: the largest distance between two points in the ROI.
    - Implementation:
     - Segmentation: Ostu's Method on the histogram.
-	- boundary points: The (max_x,y) and (min_x,y) for every y, and fill up the gaps between boundary points. Given there is only one blob, this gives a polygon that surrounds the blob.
-	- bdd_length: The number of boundary points, sinces all boundary points are neighbors.
-	- Area: The integral of (max_x - min_x + 1) over y
-	- diameter: Runs a n^2 pairwise distances to find the diameter. Necessary because boundary is not convex. 
+    - boundary points: The (max\_x,y) and (min\_x,y) for every y, and fill up the gaps between boundary points. Given there is only one blob, this gives a polygon that surrounds the blob.
+    - bdd\_length: The number of boundary points, sinces all boundary points are neighbors.
+    - Area: The integral of (max\_x - min\_x + 1) over y
+    - diameter: Runs a n^2 pairwise distances to find the diameter. Necessary because boundary is not convex. 
 #### 1.1 other (maybe unused) implementations
    - myPerimeter: Handles bdd\_points, bdd\_length, Area, diameter for mySegmenter.
    - myDiameter: Handles diameter for myPerimeter.
