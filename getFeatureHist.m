@@ -1,4 +1,4 @@
-function hist = featureHist(imIn, m,n, nbins)
+function hist = getFeatureHist(imIn, m,n, nbins)
 	features = [];
 	[a,b] = size(imIn);
 	temp = uint32(imIn);
