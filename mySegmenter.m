@@ -1,4 +1,4 @@
-function [imOut, bdd_points, bdd_length, Area, diameter] = mySegmenter(imIn,method)
+function [imOut, bdd_points, bdd_length, Area, diameter] = mySegmenter(imIn,fill)
 	imOut = 0;
 	if islogical(imIn)
 		imOut = imIn;
@@ -58,5 +58,7 @@ function [imOut, bdd_points, bdd_length, Area, diameter] = mySegmenter(imIn,meth
 		imOut = imIn>v(y);
 	end
 	[bdd_points, bdd_length, Area, diameter] = myPerimeter(imOut);
-	imOut = myFill(imOut);
+	if nargin > 1
+		imOut = myFill(imOut);
+	end
 end
