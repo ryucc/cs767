@@ -1,23 +1,15 @@
 function [A,B] = myDT(imIn,method)
-	if ~islogical(imIn)
-		imIn = mySegmenter(imIn);
-	end
+	imIn = mySegmenter(imIn,1);
 	bdd_points = myPerimeter(imIn);
 	if nargin > 1 & strcmp('2-norm',method)
-		imOut = zeros(size(imIn),'double');
 		[n,m] = size(imIn);
-		for i=1:n
-			for j=1:m
-				min_dist = n+m;
-				for a=bdd_points
-					v = a - [i;j];
-					d = norm(v);
-					if d<min_dist
-						min_dist = d;
-					end
-				end
-				imOut(i,j) = min_dist;
-			end
+		imOut = (n+n+m+m)*ones(size(imIn),'double');
+        crdY = repmat((1:m),[n,1]);
+        crdX = repmat((1:n)',[1,m]);
+		for a=bdd_points
+            temp = (crdX-a(1)).^2 + (crdY-a(2)).^2;
+            temp = temp .^0.5;
+            imOut = min(imOut,temp);
 		end
 	else
 	% BFS, on 4-neighborhood.
@@ -67,6 +59,10 @@ function [A,B] = myDT(imIn,method)
 		end
 		n+m
 	end
-	A = imOut.*imIn;
-	B = imOut.*(~imIn);
+    imOut = cat(3,0.5*imOut,0.5*imOut,(0.9)*imOut);
+    imOut = imOut/max(max(max(imOut)));
+    imOut(:,:,1) = 1-imOut(:,:,1);
+    mask = cat(3,imIn,imIn,imIn);
+	A = imOut.*mask;
+	B = imOut.*(~mask);
 end

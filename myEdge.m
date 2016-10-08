@@ -1,4 +1,8 @@
 function imOut = myEdge(imIn, sigma)
+	[n,m] = size(size(imIn))
+	if m == 3
+		imIn = rgb2gray(imIn);
+	end
 	% gaussian filter
 	A = im2double(imIn);
 	gauss = fspecial('gaussian', 5 ,sigma);
@@ -40,9 +44,9 @@ function imOut = myEdge(imIn, sigma)
 			if abs(r) == 1
 				a = sign(derX(i,j));
 				b = sign(derY(i,j));
-				if norm([derX(i+a,j+b),derY(i+a,j+b)])> norm([derX(i,j),derY(i,j)])
+				if norm([derX(i+a,j+b),derY(i+a,j+b)])>= norm([derX(i,j),derY(i,j)])
 					isEdge(i,j) = 0;
-				elseif norm([derX(i-a,j-b),derY(i-a,j-b)])> norm([derX(i,j),derY(i,j)])
+				elseif norm([derX(i-a,j-b),derY(i-a,j-b)])>= norm([derX(i,j),derY(i,j)])
 					isEdge(i,j) = 0;
 				end
 			else if abs(r)< 1
@@ -53,9 +57,9 @@ function imOut = myEdge(imIn, sigma)
 				qy = r*derY(i,j+b)+(1-r)*derY(i+a,j+b);
 				px = r*derX(i,j-b)+(1-r)*derX(i-a,j-b);
 				py = r*derY(i,j-b)+(1-r)*derY(i-a,j-b);
-				if norm([qx,qy]) >	norm([derX(i,j),derY(i,j)])
+				if norm([qx,qy]) >=	norm([derX(i,j),derY(i,j)])
 					isEdge(i,j) = 0;
-				elseif norm([px,py]) >	norm([derX(i,j),derY(i,j)])
+				elseif norm([px,py]) >=	norm([derX(i,j),derY(i,j)])
 					isEdge(i,j) = 0;
 				end
 			else
@@ -66,9 +70,10 @@ function imOut = myEdge(imIn, sigma)
 				qy = r*derY(i+a,j)+(1-r)*derY(i+a,j+b);
 				px = r*derX(i-a,j)+(1-r)*derX(i-a,j-b);
 				py = r*derY(i-a,j)+(1-r)*derY(i-a,j-b);
-				if norm([qx,qy]) >	norm([derX(i,j),derY(i,j)])
+
+				if norm([qx,qy]) >=	norm([derX(i,j),derY(i,j)])
 					isEdge(i,j) = 0;
-				elseif norm([px,py]) >	norm([derX(i,j),derY(i,j)])
+				elseif norm([px,py]) >=	norm([derX(i,j),derY(i,j)])
 					isEdge(i,j) = 0;
 				end
 			end

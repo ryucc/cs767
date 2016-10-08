@@ -1,4 +1,8 @@
 function imOut = myEdge2(imIn, ths)
+	[n,m] = size(size(imIn))
+	if m == 3
+		imIn = rgb2gray(imIn);
+	end
 	% quantization
 	thresh = multithresh(imIn,ths);
 	A = imquantize(imIn,thresh);

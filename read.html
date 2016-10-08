@@ -1,0 +1,111 @@
+<h2 id="cs767-assignment-1">CS767 Assignment 1</h2>
+<h3 id="problem-1">Problem 1</h3>
+<h4 id="mysegmenterimin">1.1 mySegmenter(imIn)</h4>
+<ul>
+<li>Segmentate the image into foreground and background.</li>
+<li>Inputs : A 2-D logical or integer array, the image.</li>
+<li>Outputs :
+<ul>
+<li>imOut : The Segmentated image.</li>
+<li>bdd_points : A polygon boundary of the image.</li>
+<li>bdd_length: The length of the polygon boundary.</li>
+<li>Area: Area inside the polygon boundary.</li>
+<li>diameter: the largest distance between two points in the ROI.</li>
+</ul></li>
+<li>Implementation:
+<ul>
+<li>Segmentation: Ostu's Method on the histogram.</li>
+<li>boundary points: The (max_x,y) and (min_x,y) for every y, and fill up the gaps between boundary points. Given there is only one blob, this gives a polygon that surrounds the blob.</li>
+<li>bdd_length: The number of boundary points, sinces all boundary points are neighbors.</li>
+<li>Area: The integral of (max_x - min_x + 1) over y</li>
+<li>diameter: Runs a n^2 pairwise distances to find the diameter. Necessary because boundary is not convex.</li>
+</ul></li>
+<li>Results:
+<ul>
+<li>Foregound pixels:</li>
+<li><img src="results/images/p1/p1-foreground.jpg" alt="alt text" /></li>
+<li>Pixels inside boundary:</li>
+<li><img src="results/images/p1/p1-ROI.jpg" title="fig:" alt="alt text" /></li>
+</ul></li>
+</ul>
+<h4 id="other-maybe-unused-implementations">1.1 other (maybe unused) implementations</h4>
+<ul>
+<li>myPerimeter: Handles bdd_points, bdd_length, Area, diameter for mySegmenter.</li>
+<li>myDiameter: Handles diameter for myPerimeter.</li>
+<li>myFill: Fills the blob so that it contains no holes.</li>
+<li>myArea(unused): Takes the set of boundary points, and calulates the area by dividing it into triangles.</li>
+<li>myPerimeterLength(unused):the sum of Euclidian distances between boundary points.</li>
+</ul>
+<h4 id="mydtiminmethod">1.2 myDT(imIn,method)</h4>
+<ul>
+<li>Creates the distance transfrom</li>
+<li>Inputs : A 2-D logical or integer array, the image.</li>
+<li>Outputs: [A,B]
+<ul>
+<li>A: the distance map outside the boundary</li>
+<li>B: the distance map inside the boundary</li>
+</ul></li>
+<li>implementation: By default, uses BFS to calculate the mannhattan distance to the closest boundary point. If specified (method = '2-norm'), calculates distance from all pixels to each boundary point, then take min, vector programming, super fast.</li>
+<li>Results</li>
+<li>BFS</li>
+<li><img src="results/images/p1/p2-in.jpg" alt="alt text" /> <img src="results/images/p1/p2-out.jpg" alt="alt text" /></li>
+<li>2-norm</li>
+<li><img src="results/images/p1/p2-2ni.jpg" alt="alt text" /> <img src="results/images/p1/p2-2no.jpg" alt="alt text" /></li>
+</ul>
+<h4 id="experiments">1.3 Experiments</h4>
+<h3 id="problem-2">Problem 2</h3>
+<h4 id="myregionfinderimin">2.1 myRegionFinder(imIn)</h4>
+<ul>
+<li>Assign different values to different blobs.</li>
+<li>Inputs : A 2-D logical or integer array, the image.</li>
+<li>Outputs: A 2-D uint8 array</li>
+<li>implementation: DFS to find connected components.</li>
+<li>Results: imshow(imOut/double(imOut)/max(max(imOut))</li>
+<li><img src="results/images/p2/im1.jpg" alt="alt text" /> <img src="results/images/p2/im2.jpg" alt="alt text" /></li>
+</ul>
+<h3 id="problem-3.1">Problem 3.1</h3>
+<ul>
+<li>myEdge(imIn,sigma): Based on Canny.
+<ol style="list-style-type: decimal">
+<li>Apply Gaussian filter</li>
+<li>Calculate gradient</li>
+<li>Filter out small gradients</li>
+<li>Non-maxium surpression</li>
+</ol></li>
+<li>myEdge2(imIn,n):
+<ol style="list-style-type: decimal">
+<li>Quantize intensitys into n values.</li>
+<li>Calculate gradient</li>
+<li>Filter out small gradients</li>
+<li>Non-maxium surpression</li>
+</ol></li>
+<li>Removing culttered edges:
+<ol style="list-style-type: decimal">
+<li>Erosion</li>
+<li>edge(x,y) = 0, if edge(x,y) has less than 2 pixels in the 8-neighborhood are edge pixels.</li>
+</ol></li>
+<li>Results</li>
+<li>myEdge:</li>
+<li><img src="results/images/p3/e11.jpg" alt="alt text" /> <img src="results/images/p3/e12.jpg" alt="alt text" /> <img src="results/images/p3/e13.jpg" alt="alt text" /> <img src="results/images/p3/e14.jpg" alt="alt text" /></li>
+<li>myEdge2:</li>
+<li><img src="results/images/p3/e21.jpg" alt="alt text" /> <img src="results/images/p3/e22.jpg" alt="alt text" /> <img src="results/images/p3/e23.jpg" alt="alt text" /> <img src="results/images/p3/e24.jpg" alt="alt text" /></li>
+</ul>
+<h3 id="problem-3.2">Problem 3.2</h3>
+<ul>
+<li>groupEdge(imIn,x,y) Uses connected components method the group the edges. But allows a gap if 2 pixels between edges.</li>
+</ul>
+<h3 id="problem-4">Problem 4</h3>
+<ul>
+<li>IJCV 2001 Real-Time Face Detection
+<ul>
+<li>For getFeature, I didn't implement any concepts from the paper. Since directly summing all the pixels would be the fastest.</li>
+<li>For getFeatureHist, I calculated the integral image first, then all the queries for getFeature(m,n,i,j) would be O(1) time.</li>
+</ul></li>
+<li>getFeature
+<ul>
+<li>Regions that give no response are aproximately homogenious on the left and right.</li>
+<li>Regions that have positive response have decresing intensity from left to right.</li>
+<li>Regions that have negitive response have incresing intensity from left to right</li>
+</ul></li>
+<li>getFeatureHist</li>
+</ul>

@@ -17,8 +17,10 @@
     - Area: The integral of (max\_x - min\_x + 1) over y
     - diameter: Runs a n^2 pairwise distances to find the diameter. Necessary because boundary is not convex. 
    - Results:
-   ![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
-   ![alt text](https://github.com/ryucc/cs767/blob/master/results/images/p1/p1-ROI.jpg "ROI")
+    - Foregound pixels:
+    - ![alt text](results/images/p1/p1-foreground.jpg)
+    - Pixels inside boundary:
+    - ![alt text](results/images/p1/p1-ROI.jpg)
 
 
 #### 1.1 other (maybe unused) implementations
@@ -35,7 +37,16 @@
     - A: the distance map outside the boundary
 	- B: the distance map inside the boundary
    - implementation:
-   By default, uses BFS to calculate the mannhattan distance to the closest boundary point. If specified (method = '2-norm'), it runs a much slower pairwise distance to the boundary points.
+   By default, uses BFS to calculate the mannhattan distance to the closest boundary point. 
+   If specified (method = '2-norm'), calculates distance from all pixels to each boundary point, then take min, vector programming, super fast.
+   - Results
+   - BFS
+   - ![alt text](results/images/p1/p2-in.jpg)
+   ![alt text](results/images/p1/p2-out.jpg)
+   - 2-norm
+   - ![alt text](results/images/p1/p2-2ni.jpg)
+   ![alt text](results/images/p1/p2-2no.jpg)
+
 
 #### 1.3 Experiments
 
@@ -46,8 +57,11 @@
    - Inputs : A 2-D logical or integer array, the image.
    - Outputs: A 2-D uint8 array
    - implementation: DFS to find connected components.
+   - Results: imshow(imOut/double(imOut)/max(max(imOut))
+   - ![alt text](results/images/p2/im1.jpg)
+   ![alt text](results/images/p2/im2.jpg)
 
-### Problem 3
+### Problem 3.1
    - myEdge(imIn,sigma): Based on Canny.
     1. Apply Gaussian filter
     2. Calculate gradient
@@ -61,6 +75,19 @@
    - Removing culttered edges: 
     1. Erosion
     2. edge(x,y) = 0, if edge(x,y) has less than 2 pixels in the 8-neighborhood are edge pixels.
+   - Results
+   - myEdge:
+   - ![alt text](results/images/p3/e11.jpg)
+   ![alt text](results/images/p3/e12.jpg)
+   ![alt text](results/images/p3/e13.jpg)
+   ![alt text](results/images/p3/e14.jpg)
+   - myEdge2:
+   - ![alt text](results/images/p3/e21.jpg)
+   ![alt text](results/images/p3/e22.jpg)
+   ![alt text](results/images/p3/e23.jpg)
+   ![alt text](results/images/p3/e24.jpg)
+
+### Problem 3.2
    - groupEdge(imIn,x,y)
     Uses connected components method the group the edges. But allows a gap if 2 pixels between edges.
     
