@@ -6,6 +6,7 @@ function [A,B] = myDT(imIn,method)
 		imOut = (n+n+m+m)*ones(size(imIn),'double');
         crdY = repmat((1:m),[n,1]);
         crdX = repmat((1:n)',[1,m]);
+    % vector programming is faster
 		for a=bdd_points
             temp = (crdX-a(1)).^2 + (crdY-a(2)).^2;
             temp = temp .^0.5;
@@ -55,7 +56,6 @@ function [A,B] = myDT(imIn,method)
 				end
 			end
 			cur = next;
-			%imOut
 		end
 		n+m
 	end

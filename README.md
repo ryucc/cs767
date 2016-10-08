@@ -1,5 +1,7 @@
 ## CS767 Assignment 1
 
+I use all 4 late days. new deadline is Oct. 7 Friday 11:59 p.m.
+
 ### Problem 1
 #### 1.1 mySegmenter(imIn) 
    - Segmentate the image into foreground and background.
@@ -49,6 +51,14 @@
 
 
 #### 1.3 Experiments
+   - The predictor seems to grow with area/boundary length/diameter. Since the blobs are mostly circles, boundary length and diameter grow together, area is their square. So the predictor has the same behavior to the three measures.
+   - Scatter plots:
+   - x = Diameter, y = prepictor, correlation = 0.4818
+   - ![alt text](results/images/p1/dia0.4818.jpg)
+   - x = Area, y = prepictor, correlation = 0.4646
+   - ![alt text](results/images/p1/area.jpg)
+   - x = Boundary length, y = prepictor, correlation = 0.4753
+   - ![alt text](results/images/p1/bddlen0.4753.jpg)
 
 ### Problem 2
 
@@ -90,6 +100,14 @@
 ### Problem 3.2
    - groupEdge(imIn,x,y)
     Uses connected components method the group the edges. But allows a gap if 2 pixels between edges.
+   - Cloud.png, (150,76)
+   - ![alt text](results/images/p4/2.jpg)
+   - edge\_link.png, (150,76)
+   - ![alt text](results/images/p4/3.jpg)
+   - img\_ct\_lung, (100,88)
+   - ![alt text](results/images/p4/4.jpg)
+   - edge\_detecter, (400,197)
+   - ![alt text](results/images/p4/1.jpg)
     
 
 ### Problem 4
@@ -101,6 +119,3 @@
     - Regions that have positive response have decresing intensity from left to right.
     - Regions that have negitive response have incresing intensity from left to right
    - getFeatureHist
-
-
-
