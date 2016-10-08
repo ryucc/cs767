@@ -18,6 +18,7 @@
     - diameter: Runs a n^2 pairwise distances to find the diameter. Necessary because boundary is not convex. 
    - Results:
    ![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+   ![alt text](https://github.com/ryucc/cs767/blob/master/results/images/p1/p1-ROI.jpg "ROI")
 
 
 #### 1.1 other (maybe unused) implementations
