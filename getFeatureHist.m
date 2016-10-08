@@ -1,8 +1,12 @@
 function hist = getFeatureHist(imIn, m,n, nbins)
+	[n,m] = size(size(imIn));
+	if m == 3
+		imIn = rgb2gray(imIn);
+	end
 	features = [];
 	[a,b] = size(imIn);
-	temp = uint32(imIn);
-	integral = zeros([a,b],'uint32');
+	temp = double(imIn);
+	integral = zeros([a,b],'double');
 	for i = 1:a
 		temp = wshift(2,temp,[-1,0]);
 		temp(1,:) = 0;
@@ -14,7 +18,6 @@ function hist = getFeatureHist(imIn, m,n, nbins)
 		temp(:,1) = 0;
 		integral = integral + temp;
 	end
-	mesh(integral);
 	A = zeros([a+1,b+1]);
 	A(2:end,2:end) = integral;
 	integral = A;
